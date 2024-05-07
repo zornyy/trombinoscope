@@ -4,6 +4,7 @@ import Login from './auth/Login';
 import Account from "./auth/Account";
 import Home from "./Home";
 import NoPage from "./components/NoPage";
+import Layout from "./components/Layout";
 import './App.css'
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
 <<<<<<< Updated upstream
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home/>}/>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<Account />} />

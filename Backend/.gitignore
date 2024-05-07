@@ -1,2 +1,5 @@
 pocketbase.exe
 pb_data
+pb_migrations
+../.idea
+../.vscode

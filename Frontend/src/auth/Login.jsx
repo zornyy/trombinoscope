@@ -1,10 +1,10 @@
 import { useState } from "react";
-import PocketBase from 'pocketbase';
 import "../App.css";
+import { DBContext } from "../components/contexts/DBContext";
 
 export default function Login() {
 
-    const pb = new PocketBase('http://127.0.0.1:8090');
+    const {db} = useContext(DBContext)
 
     const [inputPassword, setInputPassword] = useState();
     const [inputUsername, setInputUsername] = useState();
@@ -16,14 +16,11 @@ export default function Login() {
     const handleClick = async() => {
         let password = inputPassword;
         let username = inputUsername;
-        console.log("test")
         try {
-            const record = await pb.collection('users').authWithPassword(username, password);
-            console.log("test")
+            const record = await db.collection('users').authWithPassword(username, password);
             window.location.replace("/");
         }
         catch(error) {
-            console.log(error);
             setErrorMsg("Log in Failed");
         }
     }

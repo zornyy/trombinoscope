@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import Pocketbase from "pocketbase";
-import "../App.css";
+import { useState, useContext } from "react"
+import "../App.css"
+import { DBContext } from "../components/contexts/DBContext"
 
 export default function Register() {
 
-    const pb = new Pocketbase('http://127.0.0.1:8090');
+    const {db} = useContext(DBContext)
 
     const [inputUsername, setInputUsername] = useState();
     const [inputPassword, setInputPassword] = useState();
@@ -24,8 +24,8 @@ export default function Register() {
             email : inputEmail,
         };
         try {
-            const record = await pb.collection('users').create(data);
-            const recordLogin = await pb.collection('users').authWithPassword(inputEmail, inputPassword);
+            const record = await db.collection('users').create(data);
+            const recordLogin = await db.collection('users').authWithPassword(inputEmail, inputPassword);
             window.location.replace("/");
         }
         catch(error) {

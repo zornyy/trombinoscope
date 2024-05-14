@@ -121,63 +121,6 @@
     "options": {}
   },
   {
-    "id": "p81yu5dq066ffqo",
-    "name": "Picture",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "system": false,
-        "id": "btnkwvpa",
-        "name": "is_active",
-        "type": "bool",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {}
-      },
-      {
-        "system": false,
-        "id": "pry8tc7j",
-        "name": "subject_id",
-        "type": "relation",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "collectionId": "fj4wtltror747g5",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": null
-        }
-      },
-      {
-        "system": false,
-        "id": "c4malimi",
-        "name": "picture",
-        "type": "file",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "mimeTypes": [],
-          "thumbs": [],
-          "maxSelect": 1,
-          "maxSize": 5242880,
-          "protected": false
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "",
-    "viewRule": "",
-    "createRule": "id = @request.auth.id",
-    "updateRule": "  id = @request.auth.id",
-    "deleteRule": "id = @request.auth.id",
-    "options": {}
-  },
-  {
     "id": "ll554wzn9c1532o",
     "name": "Section",
     "type": "base",
@@ -312,6 +255,22 @@
           "minSelect": null,
           "maxSelect": 1,
           "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "42tzmpei",
+        "name": "image",
+        "type": "file",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "mimeTypes": [],
+          "thumbs": [],
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "protected": false
         }
       }
     ],

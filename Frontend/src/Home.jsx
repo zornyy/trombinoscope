@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import { DBContext } from "./components/contexts/DBContext";
 import { useNavigate } from "react-router-dom"
+import TrombinoDisp from './components/TrombinoDisp';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Home() {
   
   
   const getRecords = async() => {
-    db.authStore.clear();
+    // console.log(await db.send("api/trombino"))
     try {
       const fetched = await db.collection('Picture').getFullList({
         sort: '-created', requestKey: null 
@@ -27,19 +28,25 @@ export default function Home() {
     getRecords()
   }, [])
 
-  // useEffect(() => {
-  //   if (currentUser == null) {
-  //     navigate("/login");
-  //   }  
-  // }, [])
+  useEffect(() => {
+    if (currentUser == null) {
+      navigate("/login");
+    }  
+  }, [])
 
   return (
     <>
-      {
-        records.map(function(item, i) {
-          <img key={i} src={item.url}></img>
-        })
-      }
+      <h1 className='mb-10'>Supa Trombino</h1>
+      {/* Div to display all trombinos */}
+      <div className="flex justify-around flex-wrap"> 
+        <TrombinoDisp/>
+        <TrombinoDisp/>
+        <TrombinoDisp/>
+        <TrombinoDisp/>
+        <TrombinoDisp/>
+        <TrombinoDisp/>
+      </div>
+      
     </>
   )
 }

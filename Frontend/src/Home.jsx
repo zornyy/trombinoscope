@@ -12,6 +12,7 @@ export default function Home() {
   
   
   const getRecords = async() => {
+    db.authStore.clear();
     try {
       const fetched = await db.collection('Picture').getFullList({
         sort: '-created', requestKey: null 
@@ -26,11 +27,11 @@ export default function Home() {
     getRecords()
   }, [])
 
-  useEffect(() => {
-    if (currentUser == null) {
-      navigate("/login");
-    }  
-  }, [])
+  // useEffect(() => {
+  //   if (currentUser == null) {
+  //     navigate("/login");
+  //   }  
+  // }, [])
 
   return (
     <>

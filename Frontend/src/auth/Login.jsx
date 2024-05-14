@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "../App.css";
 import { DBContext } from "../components/contexts/DBContext";
 
@@ -43,7 +43,7 @@ export default function Login() {
 
     return(
         <div id="login" className="form">
-            <label>Username:</label>
+            <label>Nom d'utilisateur:</label>
             <input type="text" onChange={usernameHandleChange} placeholder="enter your username..."></input>
             <label>Password:</label>
             <input type="password" onChange={passwordHandleChange} placeholder="enter your password..."></input>

@@ -1,5 +1,5 @@
 
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import { DBContext } from "./components/contexts/DBContext";
 import { useNavigate } from "react-router-dom"
@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     if (currentUser == null) {
-      navigate("/login");
+      // navigate("/login");
     }  
   }, [])
 

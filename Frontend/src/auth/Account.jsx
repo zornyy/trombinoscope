@@ -1,37 +1,16 @@
-import Pocketbase from "pocketbase";
-import { useState } from "react";
-import Alert from '../components/Alert';
+import { useContext, useState } from "react";
 import "../App.css";
 import NewTrombinoModal from "../components/NewTrombinoModal";
+import { DBContext } from "../components/contexts/DBContext";
 
 export default function Account() {
 
-    const pb = new Pocketbase('http://127.0.0.1:8090');
-    const user = pb.authStore.model;
+    const {db} = useContext(DBContext)
+    const user = db.authStore.model;
 
     const [inputUsername, setInputUsername] = useState(user.username);
     const [errorMsg, setErrorMsg] = useState("");
     const [displayAlert, setDisplayAlert] = useState("none")
-
-
-    /**
-     * fonction pour changer la valeur du pseudo
-     * @param {input qui envoie la requete} e 
-     */
-    const usernameHandleChange = (e) => {
-        setInputUsername(e.target.value);
-    }
-
-    /**
-     * fonction pour changer l'affichage du composant Alert.jsx
-     */
-    const showAlert = () => {
-        if (displayAlert == "none") {
-            setDisplayAlert("block")
-        } else {
-            setDisplayAlert("none")
-        }
-    }
 
     /**
      * fonction asynchrone pour changer le pseudo dans la base de données

@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 export default function NewTrombinoModal() {
     const [visible, setVisible] = useState(false)
 

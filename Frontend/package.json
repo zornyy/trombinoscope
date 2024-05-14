@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.17.2",
     "pocketbase": "^0.21.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

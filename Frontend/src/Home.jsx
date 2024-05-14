@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <>
-
+      <h1 className='mb-10'>Supa Trombino</h1>
       {/* Div to display all trombinos */}
       <div className="flex justify-around flex-wrap"> 
         <TrombinoDisp/>

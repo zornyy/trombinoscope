@@ -3,7 +3,6 @@ import { useContext, useEffect } from 'react'
 import './App.css'
 import { DBContext } from "./components/contexts/DBContext";
 import { useNavigate } from "react-router-dom"
-import { DBContext } from './components/contexts/DBContext'
 
 export default function Home() {
   const navigate = useNavigate();

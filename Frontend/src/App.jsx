@@ -12,9 +12,10 @@ import PocketBase from 'pocketbase';
 function App() {
 
   const db = new PocketBase(import.meta.env.VITE_BACKEND_URL);
+
   return (
     <>
-      <DBContext.Provider value={db}>
+      <DBContext.Provider value={{db}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>

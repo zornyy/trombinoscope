@@ -4,7 +4,7 @@ import { DBContext } from "../components/contexts/DBContext"
 
 export default function Register() {
 
-    const {db} = useContext(DBContext)
+    const {db} = useContext(DBContext);
 
     const [inputUsername, setInputUsername] = useState();
     const [inputPassword, setInputPassword] = useState();
@@ -24,8 +24,8 @@ export default function Register() {
             email : inputEmail,
         };
         try {
-            const record = await db.collection('users').create(data);
-            const recordLogin = await db.collection('users').authWithPassword(inputEmail, inputPassword);
+            const record = await db.collection('Users').create(data);
+            const recordLogin = await db.collection('Users').authWithPassword(inputEmail, inputPassword);
             window.location.replace("/");
         }
         catch(error) {

@@ -1,7 +1,7 @@
 [
   {
     "id": "_pb_users_auth_",
-    "name": "users",
+    "name": "Users",
     "type": "auth",
     "system": false,
     "schema": [],
@@ -128,20 +128,6 @@
     "schema": [
       {
         "system": false,
-        "id": "dvlqomyk",
-        "name": "url",
-        "type": "text",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "system": false,
         "id": "btnkwvpa",
         "name": "is_active",
         "type": "bool",
@@ -165,14 +151,30 @@
           "maxSelect": 1,
           "displayFields": null
         }
+      },
+      {
+        "system": false,
+        "id": "c4malimi",
+        "name": "picture",
+        "type": "file",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "mimeTypes": [],
+          "thumbs": [],
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "protected": false
+        }
       }
     ],
     "indexes": [],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "id = @request.auth.id",
+    "updateRule": "  id = @request.auth.id",
+    "deleteRule": "id = @request.auth.id",
     "options": {}
   },
   {

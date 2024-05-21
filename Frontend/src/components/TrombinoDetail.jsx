@@ -13,9 +13,8 @@ export default function TrombinoDetails({ id }) {
 		try {
 			const record = await db.collection('Trombino').getOne(id)
 			setRecord(record)
-			console.log(record)
 		} catch(e) {
-			console.log(e)
+			
 		}
 	}
 
@@ -23,9 +22,14 @@ export default function TrombinoDetails({ id }) {
     getRecords()
   }, [])
 
+	useEffect(() => {
+		getRecords()
+	}, [id])
+
 	return(
 			<div>
-					{record.name}
+					{record.name}<br></br>
+					{record.description}
 			</div>
 	)
 }

@@ -37,27 +37,27 @@ export default function NewSubjectModal() {
 
     return (
         <ModalBase title="Ajouter un sujet" show={visible} onShowChanged={setVisible} onOk={handleSubmit}>
-            <form>
-                <label htmlFor="">
-                    Name:
-                    <input type="text" onChange={handleNameInputChange}/>
-                </label>
-                <label htmlFor="">
-                    Surname:
-                    <input type="text" onChange={handleSurnameInputChange}/>
-                </label>
-                <label htmlFor="">
-                    Description:
-                    <input type="text" onChange={handleDescriptionInputChange}/>
-                </label>
-                <label htmlFor="">
-                    Section:
-                    <input type="text" onChange={handleSectionInputChange}/>
-                </label>
-                <label htmlFor="">
-                    Image:
-                    <input type="file" accept="image/*" id="picturesInput" onChange={handleFileInputChange} />
-                </label>
+            <form className="max-w-sm mx-auto flex flex-col gap-4">
+                <div className="mb-5">
+                    <label htmlFor="nameInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name:</label>
+                    <input id="nameInput" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleNameInputChange}/>
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="surnameInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Surname:</label>
+                    <input id="surnameInput" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleSurnameInputChange}/>
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="descriptionInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description:</label>
+                    <input id="descriptionInput" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleDescriptionInputChange}/>
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="sectionInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section:</label>
+                    <input id="sectionInput" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleSectionInputChange}/>
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="picturesInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image:</label>
+                    <input type="file" accept="image/*" id="picturesInput" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleFileInputChange} />
+                </div>
             </form>
         </ModalBase>
     )

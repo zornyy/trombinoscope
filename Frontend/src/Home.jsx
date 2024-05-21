@@ -9,6 +9,7 @@ export default function Home() {
   const navigate = useNavigate();
   const {db} = useContext(DBContext);
   const [records, setRecords] = useState([])
+  const [showCreateModal, setShowCreateModal] = useState(false)
   const currentUser = db.authStore.model;
   
   
@@ -25,7 +26,7 @@ export default function Home() {
   }
 
   const handleAddTrombino = async() => {
-    console.log("Attempting to create trombino");
+    setShowCreateModal(true);
   }
 
   useEffect(() => {
@@ -40,8 +41,9 @@ export default function Home() {
 
   return (
     <>
+        <NewTrombinoModal show={showCreateModal} onShowChanged={setShowCreateModal} />
         <div id="account" className="form">
-            <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+            <aside id="default-sidebar" className="fixed top-0 left-0 z-20 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
                         <li>
@@ -62,7 +64,6 @@ export default function Home() {
                             <span className="ms-3">Trombino Name</span>
                             </a>
                         </li>
-                        <NewTrombinoModal />
                     </ul>
                 </div>
             </aside>

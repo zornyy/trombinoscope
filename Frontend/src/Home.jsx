@@ -5,10 +5,12 @@ import { DBContext } from "./components/contexts/DBContext";
 import { useNavigate } from "react-router-dom"
 import NewTrombinoModal from "./components/NewTrombinoModal"
 import NewSubjectModal from './components/NewSubjectModal';
+import TrombinoDetails from './components/TrombinoDetail';
 
 export default function Home() {
   const navigate = useNavigate();
   const {db} = useContext(DBContext);
+  db.autoCancellation(false);
   const [records, setRecords] = useState([])
   const [showCreateModal, setShowCreateModal] = useState(false)
   const currentUser = db.authStore.model;
@@ -17,10 +19,11 @@ export default function Home() {
   const getRecords = async() => {
     // console.log(await db.send("api/trombino"))
     try {
-      const fetched = await db.collection('Picture').getFullList({
-        sort: '-created', requestKey: null 
+      const records = await db.collection('Trombino').getFullList({
+        sort: '-created'
       });
       setRecords(records)
+      console.log(records)
     } catch(e) {
       console.log(e)
     }
@@ -42,8 +45,7 @@ export default function Home() {
 
   return (
     <>
-        <NewTrombinoModal show={showCreateModal} onShowChanged={setShowCreateModal} />
-        <NewSubjectModal show={true}></NewSubjectModal>
+    <TrombinoDetails id="3r9mwofp5qyj2br"></TrombinoDetails>
         <div id="account" className="form">
             <aside id="default-sidebar" className="fixed top-0 left-0 z-20 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">

@@ -35,14 +35,15 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (currentUser == null) {
+      navigate("/login");
+    }  
     getRecords()
   }, [])
 
   useEffect(() => {
-    if (currentUser == null) {
-      navigate("/login");
-    }  
-  }, [])
+    getRecords()
+  }, [showCreateModal])
 
   return (
     <>

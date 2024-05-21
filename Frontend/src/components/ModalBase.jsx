@@ -13,7 +13,7 @@ export default function ModalBase({show, onShowChanged, title="", children=null,
 
     return (
         <div className={`${visible ? "" : "opacity-0"}fixed top-0 left-0 h-screen w-screen flex flex-col items-center z-40`}>
-            <span className={`${visible ? "" : "opacity-0"} fixed top-0 left-0 h-screen w-screen bg-black opacity-45`}></span>
+            <span className={`${visible ? "opacity-45" : "opacity-0"} fixed top-0 left-0 h-screen w-screen bg-black`}></span>
             <div className={`${visible ? "" : "opacity-0"} relative p-4 w-full max-w-2xl max-h-full`}>
                 <div className="z-50 bg-white rounded-lg shadow dark:bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">

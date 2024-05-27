@@ -3,6 +3,7 @@ import '../App.css'
 import { DBContext } from "./contexts/DBContext";
 import NewSectionModal from './NewSectionModal';
 import NewSubjectModal from './NewSubjectModal';
+import { usePDF } from 'react-to-pdf';
 
 export default function TrombinoDetails({ id }) {
 
@@ -11,6 +12,7 @@ export default function TrombinoDetails({ id }) {
 	const [record, setRecord] = useState([])
 	const {db} = useContext(DBContext);
 	db.autoCancellation(false);
+	const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
 
 	const getRecords = async() => {
 		// console.log(await db.send("api/trombino"))
@@ -51,7 +53,7 @@ export default function TrombinoDetails({ id }) {
 			<div>
 					<NewSubjectModal show={showCreateSubjectModal} onShowChanged={setShowCreateSubjectModal}></NewSubjectModal>
 					<NewSectionModal show={showCreateSectionModal} onShowChanged={setShowCreateSectionModal}></NewSectionModal>
-					<div className='flex flex-col'>
+					<div className='flex flex-col' ref={targetRef}>
 						<div>{record.name}</div>
 						<div>{record.description}</div>
 					</div>
@@ -71,6 +73,7 @@ export default function TrombinoDetails({ id }) {
 
 						<span className="ms-3">Nouveau sujet</span>
 					</button>
+					<button onClick={() => toPDF()}>Exporter en PDF</button>
 			</div>
 	)
 }

@@ -10,7 +10,7 @@ routerAdd("GET", "/trombino", (c) => {
     }))
 
     const record = c.get("authRecord");
-    if(!record) return c.json(403, { data: null })
+    if (!record) return c.json(403, { data: null })
 
     $app.dao().db()
         .select("*")
@@ -21,28 +21,27 @@ routerAdd("GET", "/trombino", (c) => {
     return c.json(200, trombino)
 })
 
-onModelBeforeCreate((e) => {
-    const record = e.get("authRecord");
-    if(!record) return c.json(403, { data: null })
-    e.model.tableName()
-    if(e.model.is_archived == undefined) e.model.is_archived = false
-    e.model.user_id = false
+onRecordBeforeCreateRequest((e) => {
+    const info = $apis.requestInfo(e.httpContext);
+    if (!info.authRecord && !info.admin) return e.json(403, { data: null })
+    if (e.record.get("is_archived") == undefined) e.record.set("is_archived", false)
+    if (!info.admin) e.record.set("user_id", info.authRecord.getId())
 }, "Trombino")
 
 onRecordViewRequest((e) => {
-    const sections = arrayOf(new DynamicModel({
-        "id": "",
-        "name": "",
-        "description": "",
-        "trombino_id": ""
-    }))
-    console.log(0)
-    console.log(JSON.stringify(e.httpContext))
-    $app.dao().db()
-        .select("*")
-        .from("Section")
-        .where($dbx.exp("trombino_id = {:id}", { id: e.record.id }))
-        .all(sections)
-    e.record.sections = []
-    console.log(JSON.stringify(e.record))
+
+    e.record.withUnknownData(true)
+    const sections = $app.dao().findRecordsByExpr("Section",
+        $dbx.exp("trombino_id = {:id}", { "id": e.record.getId() })
+    )
+
+    let subjects = []
+    for (const x of sections) {
+        x.withUnknownData(true)
+        subjects = $app.dao().findRecordsByExpr("Subject",
+            $dbx.exp("section_id = {:id}", { "id": x.getId() })
+        )
+        x.set("subjects", subjects)
+    }
+    e.record.set("sections", sections)
 }, "Trombino")

@@ -11,6 +11,7 @@ export default function Register() {
     const [inputPasswordConfirm, setInputPasswordConfirm] = useState();
     const [inputEmail, setInputEmail] = useState();
     const [errorMsg, setErrorMsg] = useState("");
+    //TODO CHECK password length
 
 
     /**

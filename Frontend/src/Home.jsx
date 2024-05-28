@@ -4,7 +4,6 @@ import './App.css'
 import { DBContext } from "./components/contexts/DBContext";
 import { useNavigate } from "react-router-dom"
 import NewTrombinoModal from "./components/NewTrombinoModal"
-import NewSubjectModal from './components/NewSubjectModal';
 import TrombinoDetails from './components/TrombinoDetail';
 
 export default function Home() {

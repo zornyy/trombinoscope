@@ -42,15 +42,20 @@ export default function Login() {
     }
 
     return(
-        <div id="login" className="form">
-            <label>Nom d'utilisateur:</label>
-            <input type="text" onChange={usernameHandleChange} placeholder="enter your username..."></input>
-            <label>Password:</label>
-            <input type="password" onChange={passwordHandleChange} placeholder="enter your password..."></input>
+        <form id="login" className="form max-w-sm mx-auto border-solid rounded-2xl border-2 px-20 py-6">
+            <div className="mb-5">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom d'utilisateur:</label>
+                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" onChange={usernameHandleChange} placeholder="enter your username..."></input>
+            </div>
+            <div className="mb-5">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password:</label>
+                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="password" onChange={passwordHandleChange} placeholder="enter your password..."></input>
+            </div>
             <div style={{color: "red"}}>{errorMsg}</div>
+            
             <div className="buttons">
                 <button className="button-form" onClick={handleClick}>Login</button>
             </div>
-        </div>
+        </form>
     )
 }

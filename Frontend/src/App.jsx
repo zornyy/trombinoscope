@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from './auth/Register';
 import Login from './auth/Login';
-import Account from "./auth/Account";
 import Home from "./Home";
 import NoPage from "./components/NoPage";
 import Layout from "./components/Layout";
@@ -22,7 +21,6 @@ function App() {
               <Route index element={<Home/>}/>
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/account" element={<Account />} />
             </Route>
             <Route path="*" element={<NoPage />} />
           </Routes>

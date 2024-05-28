@@ -14,7 +14,7 @@ export default function Home() {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const currentUser = db.authStore.model;
   const [tromId, setTromId] = useState("")
-
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const getRecords = async () => {
     try {
@@ -47,7 +47,9 @@ export default function Home() {
       <NewTrombinoModal show={showCreateModal} onShowChanged={setShowCreateModal}></NewTrombinoModal>
       <TrombinoDetails id={tromId}></TrombinoDetails>
       <div id="account" className="form">
-        <aside id="default-sidebar" className="fixed top-0 left-0 z-20 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+        <button className="z-30 md:invisible " onClick={() => setShowSidebar(true)}>Show sidebar</button>
+        {showSidebar && <span className="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-5" onClick={() => setShowSidebar(false)} />}
+        <aside id="default-sidebar" className={`fixed top-0 left-0 z-20 md:w-64 h-screen transition-transform ${showSidebar ? "" : "-translate-x-full"} sm:translate-x-0`} aria-label="Sidebar">
           <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
               <li>

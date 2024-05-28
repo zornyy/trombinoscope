@@ -29,6 +29,7 @@ export default function TrombinoDetails({ id }) {
 			format: 'letter',
 			orientation: 'portrait',
 			margin: Margin.SMALL,
+			padding: 5
 		},
 		canvas: {
 			mimeType: 'image/png',
@@ -114,11 +115,11 @@ export default function TrombinoDetails({ id }) {
 				</button>
 				<button className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group w-full hover:text-white hover:bg-[#646cff] duration-75' onClick={() => generatePDF(targetRef, options)}>Exporter en PDF</button>
 			</div>
-			<div className="flex flex-col items-start mb-4" ref={targetRef}>
+			<div className="flex flex-col items-start mb-4 pl-5" ref={targetRef}>
 				<h1>{record.name}</h1>
 				{record.description?.length > 0 && <span className="text-md text-gray-500 dark:text-gray-400">{record.description}</span>}
+				{record.sections.map((x) => <SectionDetails section={x} key={x.id} />)}
 			</div>
-			{record.sections.map((x) => <SectionDetails section={x} key={x.id} />)}
 
 		</div>
 	)

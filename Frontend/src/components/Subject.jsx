@@ -1,6 +1,4 @@
-import { useContext } from 'react'
 import '../App.css'
-import { DBContext } from './contexts/DBContext'
 
 export default function Subject({ subject }) {
     return (

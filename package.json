@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "csv-import-react": "^1.0.11"
+  }
+}

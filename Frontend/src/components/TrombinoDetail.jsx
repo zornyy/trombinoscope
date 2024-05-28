@@ -7,12 +7,14 @@ import { useRef } from 'react';
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import SectionDetails from './SectionDetails';
 import Spinner from './Spinner';
+import ImportCsvModal from './ImportCsvModal';
 
 
 export default function TrombinoDetails({ id }) {
 
 	const [showCreateSectionModal, setShowCreateSectionModal] = useState(false)
 	const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false)
+	const [showImportCsv, setShowImportCsv] = useState(false)
 	const [record, setRecord] = useState()
 	const [loading, setLoading] = useState()
 	const { db } = useContext(DBContext);
@@ -31,8 +33,6 @@ export default function TrombinoDetails({ id }) {
 		canvas: {
 			mimeType: 'image/png',
 			qualityRatio: 1,
-			width: 1000,
-			height: 1000
 		},
 
 		overrides: {
@@ -58,6 +58,10 @@ export default function TrombinoDetails({ id }) {
 
 	const handleAddSection = () => {
 		setShowCreateSectionModal(true);
+	}
+
+	const handleCSV = () => {
+		setShowImportCsv(true);
 	}
 
 	const handleAddSubject = () => {
@@ -112,6 +116,7 @@ export default function TrombinoDetails({ id }) {
 				{record.description?.length > 0 && <span className="text-md text-gray-500 dark:text-gray-400">{record.description}</span>}
 			</div>
 			{record.sections.map((x) => <SectionDetails section={x} key={x.id} />)}
+
 		</div>
 	)
 }

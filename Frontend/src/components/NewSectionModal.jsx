@@ -16,6 +16,7 @@ export default function NewSectionModal({ show, onShowChanged, trombinoId, onSav
         };
         try {
             const record = await db.collection('Section').create(data);
+            if(onSave) await onSave()
             onShowChanged(false)
         }
         catch (error) {

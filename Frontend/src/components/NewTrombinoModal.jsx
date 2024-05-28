@@ -1,12 +1,14 @@
 import { useContext, useState } from "react"
 import ModelBase from "./ModalBase"
 import { DBContext } from "./contexts/DBContext";
+import Spinner from "./Spinner";
 
 export default function NewTrombinoModal({ show, onShowChanged, onSave = undefined }) {
     const { db } = useContext(DBContext);
 
     const [name, setName] = useState();
     const [description, setDescription] = useState();
+    const [loading, setLoading] = useState();
 
     const handleClick = async () => {
         const data = {
@@ -16,8 +18,11 @@ export default function NewTrombinoModal({ show, onShowChanged, onSave = undefin
             is_archived: false
         };
         try {
+            setLoading(true)
             const record = await db.collection('Trombino').create(data);
+            if (onSave) await onSave()
             onShowChanged(false)
+            setLoading(false)
         }
         catch (error) {
             console.error(error);
@@ -33,7 +38,8 @@ export default function NewTrombinoModal({ show, onShowChanged, onSave = undefin
     }
     return (
         <ModelBase title="Nouveau Trombino" show={show} onShowChanged={onShowChanged} onOk={handleClick}>
-            <div className="p-4 md:p-5 space-y-4">
+            {loading && <Spinner />}
+            {!loading && <div className="p-4 md:p-5 space-y-4">
                 <form className="max-w-sm mx-auto flex flex-col gap-4">
                     <div className="mb-5">
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
@@ -44,7 +50,7 @@ export default function NewTrombinoModal({ show, onShowChanged, onSave = undefin
                         <input type="text" id="username" onChange={descriptionHandleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                     </div>
                 </form>
-            </div>
+            </div>}
         </ModelBase>
     )
 }

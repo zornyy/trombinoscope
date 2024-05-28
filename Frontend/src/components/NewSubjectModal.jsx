@@ -24,6 +24,7 @@ export default function NewSubjectModal({ show, onShowChanged, sections, onSave 
         };
         try {
             await db.collection('Subject').create(data);
+            if (onSave) await onSave()
             onShowChanged(false)
         }
         catch (error) {

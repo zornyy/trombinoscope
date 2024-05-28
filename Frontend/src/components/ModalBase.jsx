@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react"
 
-export default function ModalBase({show, onShowChanged, title="", children=null, onOk=null}) {
+export default function ModalBase({ show, onShowChanged, title = "", children = null, onOk = null }) {
     const [visible, setVisible] = useState(show)
 
-    useEffect(()=>{
+    useEffect(() => {
         setVisible(show)
     }, [show])
 
-    useEffect(()=>{
+    useEffect(() => {
         onShowChanged(visible)
     }, [visible])
 
     return (
         <div className={`${visible ? "" : "invisible"} fixed top-0 left-0 h-screen w-screen flex flex-col items-center z-40`}>
-            <span className={`${visible ? "opacity-45" : "invisible"} fixed top-0 left-0 h-screen w-screen bg-black`}></span>
+            <span className={`${visible ? "opacity-45" : "invisible"} fixed top-0 left-0 h-screen w-screen bg-black`} onClick={() => setVisible(false)}></span>
             <div className={`${visible ? "" : "invisible"} relative p-4 w-full max-w-2xl max-h-full`}>
                 <div className="z-50 bg-white rounded-lg shadow dark:bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                        {title.length > 0 && 
+                        {title.length > 0 &&
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                 {title}
                             </h3>

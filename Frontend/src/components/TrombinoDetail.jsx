@@ -60,6 +60,7 @@ export default function TrombinoDetails({ id }) {
 	}
 
 	const handleAddSubject = () => {
+		setShowCreateSubjectModal(true);
 	}
 
 	useEffect(() => {
@@ -90,7 +91,7 @@ export default function TrombinoDetails({ id }) {
 
 	return (
 		<div>
-			<NewSubjectModal show={showCreateSubjectModal} onShowChanged={setShowCreateSubjectModal}></NewSubjectModal>
+			<NewSubjectModal show={showCreateSubjectModal} onShowChanged={setShowCreateSubjectModal} sections={record.sections}></NewSubjectModal>
 			<NewSectionModal show={showCreateSectionModal} trombinoId={id} onShowChanged={setShowCreateSectionModal}></NewSectionModal>
 			<div className='flex flex-col' ref={targetRef}>
 				<div>{record.name}</div>

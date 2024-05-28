@@ -21,6 +21,45 @@ routerAdd("GET", "/trombino", (c) => {
     return c.json(200, trombino)
 })
 
+routerAdd("GET", "/trombino/:token", (c) => {
+    let token = c.pathParam("token")
+    const trombino = arrayOf(new DynamicModel({
+        "id": "",
+        "name": "",
+        "description": "",
+        "is_archived": false,
+        "user_id": ""
+    }))
+
+    const link = $app.dao().findRecordsByExpr("Link",
+        $dbx.exp("url = {:token}", { "token": token })
+    )
+    if (!link) return c.json(404, { data: null })
+
+    $app.dao().db()
+        .select("*")
+        .from("Trombino")
+        .where($dbx.exp("id = {:id}", { id: link.get("trombino_id") }))
+        .all(trombino)
+
+    trombino.withUnknownData(true)
+    const sections = $app.dao().findRecordsByExpr("Section",
+        $dbx.exp("trombino_id = {:id}", { "id": trombino.getId() })
+    )
+
+    let subjects = []
+    for (const x of sections) {
+        x.withUnknownData(true)
+        subjects = $app.dao().findRecordsByExpr("Subject",
+            $dbx.exp("section_id = {:id}", { "id": x.getId() })
+        )
+        x.set("subjects", subjects)
+    }
+    trombino.set("sections", sections)
+
+    return c.json(200, trombino)
+})
+
 onRecordBeforeCreateRequest((e) => {
     const info = $apis.requestInfo(e.httpContext);
     if (!info.authRecord && !info.admin) return e.json(403, { data: null })

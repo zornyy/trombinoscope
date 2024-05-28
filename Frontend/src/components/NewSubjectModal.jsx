@@ -31,8 +31,6 @@ export default function NewSubjectModal({ show, onShowChanged, sections, onSave 
         }
 
     }
-
-
     return (
         <ModalBase title="Ajouter un sujet" show={show} onShowChanged={onShowChanged} onOk={handleSubmit}>
             <form className="max-w-sm mx-auto flex flex-col gap-4">

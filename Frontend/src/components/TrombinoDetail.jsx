@@ -6,12 +6,14 @@ import NewSubjectModal from './NewSubjectModal';
 import { useRef } from 'react';
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import SectionDetails from './SectionDetails';
+import ImportCsvModal from './ImportCsvModal';
 
 
 export default function TrombinoDetails({ id }) {
 
 	const [showCreateSectionModal, setShowCreateSectionModal] = useState(false)
 	const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false)
+	const [showImportCsv, setShowImportCsv] = useState(false)
 	const [record, setRecord] = useState()
 	const [loading, setLoading] = useState()
 	const { db } = useContext(DBContext);
@@ -30,8 +32,6 @@ export default function TrombinoDetails({ id }) {
 		canvas: {
 			mimeType: 'image/png',
 			qualityRatio: 1,
-			width: 1000,
-			height: 1000
 		},
 
 		overrides: {
@@ -57,6 +57,10 @@ export default function TrombinoDetails({ id }) {
 
 	const handleAddSection = () => {
 		setShowCreateSectionModal(true);
+	}
+
+	const handleCSV = () => {
+		setShowImportCsv(true);
 	}
 
 	const handleAddSubject = () => {
@@ -92,6 +96,7 @@ export default function TrombinoDetails({ id }) {
 	return (
 		<div>
 			<NewSubjectModal show={showCreateSubjectModal} onShowChanged={setShowCreateSubjectModal} sections={record.sections}></NewSubjectModal>
+			<ImportCsvModal show={showImportCsv} onShowChanged={setShowImportCsv} id={id}></ImportCsvModal>
 			<NewSectionModal show={showCreateSectionModal} trombinoId={id} onShowChanged={setShowCreateSectionModal}></NewSectionModal>
 			<div className='flex flex-col' ref={targetRef}>
 				<div>{record.name}</div>
@@ -114,6 +119,7 @@ export default function TrombinoDetails({ id }) {
 				<span className="ms-3">Nouveau sujet</span>
 			</button>
 			<button className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group w-full hover:text-white hover:bg-[#646cff] duration-75' onClick={() => generatePDF(targetRef, options)}>Exporter en PDF</button>
+			<button className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group w-full hover:text-white hover:bg-[#646cff] duration-75' onClick={handleCSV}>Importer CSV</button>
 			{record.sections.map((x) => <SectionDetails section={x} key={x.id} />)}
 		</div>
 	)

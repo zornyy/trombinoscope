@@ -33,7 +33,6 @@ routerAdd("GET", "/trombino/:token", (c) => {
     const sections = $app.dao().findRecordsByExpr("Section",
         $dbx.exp("trombino_id = {:id}", { "id": trombino.getId() })
     )
-
     let subjects = []
     for (const x of sections) {
         x.withUnknownData(true)

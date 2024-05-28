@@ -120,7 +120,10 @@ export default function TrombinoDetails({ id }) {
 			</button>
 			<button className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group w-full hover:text-white hover:bg-[#646cff] duration-75' onClick={() => generatePDF(targetRef, options)}>Exporter en PDF</button>
 			<button className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group w-full hover:text-white hover:bg-[#646cff] duration-75' onClick={handleCSV}>Importer CSV</button>
-			{record.sections.map((x) => <SectionDetails section={x} key={x.id} />)}
+			<div ref={targetRef}>
+				{record.sections.map((x) => <SectionDetails section={x} key={x.id} />)}
+			</div>
+			
 		</div>
 	)
 }

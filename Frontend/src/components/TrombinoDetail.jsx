@@ -7,8 +7,7 @@ import { useRef } from 'react';
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import SectionDetails from './SectionDetails';
 import Spinner from './Spinner';
-import ImportCsvModal from './ImportCsvModal';
-
+import { v4 as uuidv4 } from 'uuid'
 
 export default function TrombinoDetails({ id }) {
 
@@ -75,6 +74,22 @@ export default function TrombinoDetails({ id }) {
 	useEffect(() => {
 		getRecords()
 	}, [id])
+
+	const share = async () => {
+		const data = {
+			url: uuidv4(),
+			trombino_id: id,
+			user_id: db.authStore.model.id
+		};
+		try {
+			setLoading(true)
+			const record = await db.collection('Link').create(data)
+			setLoading(false)
+			window.open(`/share/${record.url}`, '_blank')?.focus()
+		} catch (e) {
+		}
+		getRecords();
+	}
 
 
 	if (id == "") {

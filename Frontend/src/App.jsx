@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import './App.css'
 import { DBContext } from "./components/contexts/DBContext";
 import PocketBase from 'pocketbase';
+import Share from "./Share";
 
 function App() {
 
@@ -14,13 +15,14 @@ function App() {
 
   return (
     <>
-      <DBContext.Provider value={{db}}>
+      <DBContext.Provider value={{ db }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home/>}/>
+              <Route index element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/share/:slug" element={<Share />} />
             </Route>
             <Route path="*" element={<NoPage />} />
           </Routes>

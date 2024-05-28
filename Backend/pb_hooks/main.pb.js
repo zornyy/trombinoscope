@@ -23,25 +23,12 @@ routerAdd("GET", "/trombino", (c) => {
 
 routerAdd("GET", "/trombino/:token", (c) => {
     let token = c.pathParam("token")
-    const trombino = arrayOf(new DynamicModel({
-        "id": "",
-        "name": "",
-        "description": "",
-        "is_archived": false,
-        "user_id": ""
-    }))
 
     const link = $app.dao().findRecordsByExpr("Link",
         $dbx.exp("url = {:token}", { "token": token })
-    )
+    )[0]
     if (!link) return c.json(404, { data: null })
-
-    $app.dao().db()
-        .select("*")
-        .from("Trombino")
-        .where($dbx.exp("id = {:id}", { id: link.get("trombino_id") }))
-        .all(trombino)
-
+    const trombino = $app.dao().findRecordById("Trombino", link.get("trombino_id"))
     trombino.withUnknownData(true)
     const sections = $app.dao().findRecordsByExpr("Section",
         $dbx.exp("trombino_id = {:id}", { "id": trombino.getId() })

@@ -41,7 +41,10 @@ export default function TrombinoDetails({ id }) {
 			},
 			canvas: {
 				useCORS: false,
-				backgroundColor: '#314155',
+				backgroundColor: '#242424',
+				imageTimeout: 0,
+				height: 1045,
+				width: 800
 			}
 		},
 	};

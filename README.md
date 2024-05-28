@@ -51,5 +51,18 @@ npm run dev
 
 # Download the pocketbase executable for your os
 # Run it locally and open the webview
-# From there, load the databaseSchema.pb file to get the database
+
+./pocketbase serve # Linux
+./pocketbase.exe serve # Windows
+
+# From there, load the databaseSchema.pb file to get the database schema
+# If the pocketbase executable is located in the ./Backend folder, the db schema should be loaded by itself 
+
+### TO SERVE ON LOCAL NETWORK
+
+# Frontend
+npm run dev -- --host
+
+# Backend
+./pocketbase serve --http="192.168.0.1:8090" # The ip address being the one of the host computer
 ```

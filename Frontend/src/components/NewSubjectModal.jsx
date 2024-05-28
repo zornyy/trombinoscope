@@ -22,7 +22,6 @@ export default function NewSubjectModal({ show, onShowChanged, sections, onSave 
             image: image,
             is_archived: false
         };
-        console.log(data)
         try {
             await db.collection('Subject').create(data);
             onShowChanged(false)

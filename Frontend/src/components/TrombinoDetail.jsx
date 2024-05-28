@@ -3,7 +3,8 @@ import '../App.css'
 import { DBContext } from "./contexts/DBContext";
 import NewSectionModal from './NewSectionModal';
 import NewSubjectModal from './NewSubjectModal';
-import { usePDF } from 'react-to-pdf';
+import { useRef } from 'react';
+import generatePDF, { Resolution, Margin } from "react-to-pdf";
 
 export default function TrombinoDetails({ id }) {
 
@@ -12,13 +13,41 @@ export default function TrombinoDetails({ id }) {
 	const [record, setRecord] = useState([])
 	const {db} = useContext(DBContext);
 	db.autoCancellation(false);
-	const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+	const targetRef = useRef();
+
+	const options = {
+		fileName: record.name,
+		method: 'open',
+		resolution: Resolution.EXTREME,
+		page: {
+		   format: 'letter',
+		   orientation: 'portrait',
+		   margin: Margin.SMALL,
+		},
+		canvas: {
+		   mimeType: 'image/png',
+		   qualityRatio: 1,
+		   width: 1000,
+		   height: 1000
+		},
+
+		overrides: {
+		   pdf: {
+			  compress: false,
+		   },
+		   canvas: {
+			  useCORS: false,
+			  backgroundColor: '#314155',
+		   }
+		},
+	 };
 
 	const getRecords = async() => {
 		// console.log(await db.send("api/trombino"))
 		try {
 			const record = await db.collection('Trombino').getOne(id)
 			setRecord(record)
+			console.log(record)
 		} catch(e) {
 			
 		}
@@ -73,7 +102,7 @@ export default function TrombinoDetails({ id }) {
 
 						<span className="ms-3">Nouveau sujet</span>
 					</button>
-					<button onClick={() => toPDF()}>Exporter en PDF</button>
+					<button onClick={() => generatePDF(targetRef, options)}>Exporter en PDF</button>
 			</div>
 	)
 }

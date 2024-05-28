@@ -6,24 +6,6 @@ import {CSVImporter} from "csv-import-react";
 export default function ImportCsvModal({ show, onShowChanged, id }) {
     const { db } = useContext(DBContext);
 
-    const handleClick = async(e) => {
-
-        const data = {
-            name: name,
-            description: description,
-            user_id: db.authStore.model.id,
-            is_archived: false
-        };
-        try {
-            const record = await db.collection('Trombino').create(data);
-            onShowChanged(false)
-        }
-        catch (error) {
-            console.error(error);
-        }
-
-    }
-
     const close = async(e) => {
         onShowChanged(false)
         const newSectionsId = {}
@@ -61,7 +43,7 @@ export default function ImportCsvModal({ show, onShowChanged, id }) {
 
 
     return (
-        <ModelBase title="Importer Ficher CSV" show={show} onShowChanged={onShowChanged} onOk={handleClick}>
+        <ModelBase title="Importer Ficher CSV" show={show} onShowChanged={onShowChanged} >
             <div className="p-4 md:p-5 space-y-4">
             <CSVImporter
                 modalIsOpen={show}

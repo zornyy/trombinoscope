@@ -5,7 +5,6 @@ import {CSVImporter} from "csv-import-react";
 
 export default function ImportCsvModal({ show, onShowChanged, id }) {
     const { db } = useContext(DBContext);
-    const [open, setOpen] = useState(false)
 
     const handleClick = async(e) => {
 
@@ -26,8 +25,7 @@ export default function ImportCsvModal({ show, onShowChanged, id }) {
     }
 
     const close = async(e) => {
-        setOpen(false)
-        onShowChanged()
+        onShowChanged(false)
         const newSectionsId = {}
         const sections =e.rows.reduce((acc, x )=>{
             if(!acc[x.values.section_id])acc[x.values.section_id] = {name: x.values.section_name, description: x.values.section_description, trombino_id: id}
@@ -36,33 +34,38 @@ export default function ImportCsvModal({ show, onShowChanged, id }) {
         console.log(sections)
         for(const section of Object.keys(sections)) {
             const record = await db.collection('Section').create(sections[section]);
-            // newSectionsId set id with old id
+            newSectionsId[section]=record.id
         }
 
-        // for (let i=0; i < e.rows.length; i++) {
-        //     // get new id of old section
+        for (const row of e.rows) {
+            // get new id of old section
             
-        //     const data = {
-        //         name: e.rows[i].values.name,
-        //         description: e.rows[i].values.description,
-        //         user_id: db.authStore.model.id 
-        //     };
-        //     console.log(data)
-        //     try {
-        //         const record = await db.collection('Trombino').create(data);
-        //     }
-        //     catch(error) {
-        //         console.error(error);
-        //     }
-        // }
+            const data = {
+                first_name: row.values.first_name,
+                last_name: row.values.last_name,
+                formatted_name: row.values.formatted_name,
+                description: row.values.description,
+                section_id: newSectionsId[row.values.section_id],
+                image: null,
+                is_archived: false
+            };
+            console.log(data)
+            try {
+                const record = await db.collection('Subject').create(data);
+            }
+            catch(error) {
+                console.error(error);
+            }
+        }
     }
+
 
     return (
         <ModelBase title="Importer Ficher CSV" show={show} onShowChanged={onShowChanged} onOk={handleClick}>
             <div className="p-4 md:p-5 space-y-4">
             <CSVImporter
                 modalIsOpen={show}
-                modalOnCloseTriggered={onShowChanged}
+                modalOnCloseTriggered={()=>onShowChanged(false)}
                 darkMode={true}
                 onComplete={(data) => close(data)}
                 template={{
